@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Linked List - AlgoLens</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/visualizer.css">
+        <link rel="stylesheet" href="../libs/prism.css">
+        <link rel="icon" type="image/png" href="../assets/favicon.png">
+    </head>
+    <body>
+        <header class="main-header">
+            <div class="container">
+                <a class="logo" href="../index.html">
+                    <div class="logo-image">
+                        <img src="../assets/favicon.png" alt="AlgoLens Logo" class="logo-image">
+                    </div>
+                    <div class="logo-text">
+                        <h1>AlgoLens</h1>
+                        <span>Interactive Linked List Visualizer</span>
+                    </div>
+                </a>
+                <nav class="main-nav">
+                    <a href="../index.html" class="nav-link active">Home</a>
+                    <a href="../code-page/code-page.html" class="nav-link">Source Code</a>
+                    <a href="https://github.com/neeldesai1085/AlgoLens" class="nav-link" target="_blank">GitHub</a>
+                    <button class="theme-toggle" id="themeToggle">🌙</button>
+                </nav>
+                <nav class="mobile-nav">
+                    <button class="theme-toggle" id="themeToggle">🌙</button>
+                    <button class="menu-toggle" id="menuToggle">☰</button>
+                    <div class="mobile-menu" id="mobileMenu">
+                        <a href="../index.html" class="nav-link active">Home</a>
+                        <a href="../code-page/code-page.html" class="nav-link">Source Code</a>
+                        <a href="https://github.com/neeldesai1085/AlgoLens" class="nav-link" target="_blank">GitHub</a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="container">
+            <div class="topic-layout">
+                <div class="page-header">
+                    <h1 class="page-title">Linked List Visualization</h1>
+                    <p class="page-description">
+                        Explore linked list operations with real-time visualization and step-by-step Java code execution.
+                        Watch how nodes are inserted, deleted, and searched in a singly linked list.
+                    </p>
+                </div>
+                <div class="visualization-area">
+                    <div class="visualization-container">
+                        <div class="list-container" id="listContainer">
+                            <div class="empty-state">
+                                <p>Linked list is empty. Add nodes to get started!</p>
+                            </div>
+                        </div>
+                        <div class="list-info">
+                            <div class="info-item">
+                                <span class="info-label">Nodes:</span>
+                                <span class="info-value" id="listSize">0</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Head:</span>
+                                <span class="info-value" id="listHead">null</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Last Operation:</span>
+                                <span class="info-value" id="lastOperation">None</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="explanation-box">
+                        <h3 class="explanation-title">Operation Explanation</h3>
+                        <p class="explanation-text" id="explanationText">
+                            Select an operation from the controls panel to see the step-by-step execution 
+                            with highlighted code and detailed explanations.
+                        </p>
+                    </div>
+                </div>
+                <div class="code-area">
+                    <div class="code-header">
+                        <span class="code-title">LinkedList.java</span>
+                        <a href="../code/LinkedList.java" class="btn view-source-btn" target="_blank">View Source</a>
+                    </div>
+                    <div class="code-content">
+                        <pre><code class="language-java" id="codeDisplay">public class LinkedList<T> {
+    private Node<T> head;
+    private int size = 0;
+    private class Node<T> {
+        T data;
+        Node<T> next;
+        Node(T data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    public void insertAtHead(T data) {
+        Node<T> newNode = new Node<>(data);
+        newNode.next = head;
+        head = newNode;
+        size++;
+    }
+
+    public void insertAtTail(T data) {
+        Node<T> newNode = new Node<>(data);
+        if (head == null) {
+            insertAtHead(data);
+            return;
+        }
+        Node<T> current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+        size++;
+    }
+
+    public void insertAtIndex(int index, T data) {
+        if (index < 0 || index > size) {
+            return;
+        }
+        if (index == 0) {
+            insertAtHead(data);
+            return;
+        }
+        Node<T> newNode = new Node<>(data);
+        Node<T> current = head;
+        for (int i = 0; i < index - 1; i++) {
+            current = current.next;
+        }
+        newNode.next = current.next;
+        current.next = newNode;
+        size++;
+    }
+
+    public boolean delete(T data) {
+        if (head == null) {
+            return false;
+        }
+        if (head.data.equals(data)) {
+            head = head.next;
+            size--;
+            return true;
+        }
+        Node<T> current = head;
+        while (current.next != null) {
+            if (current.next.data.equals(data)) {
+                current.next = current.next.next;
+                size--;
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
+
+    public int search(T data) {
+        Node<T> current = head;
+        int index = 0;
+        while (current != null) {
+            if (current.data.equals(data)) {
+                return index;
+            }
+            current = current.next;
+            index++;
+        }
+        return -1;
+    }
+
+    public int size() {
+        return size;
+    }
+}</code></pre>
+                    </div>
+                </div>
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <h3>Linked List Operations</h3>
+                        <div class="control-row">
+                            <input type="number" id="insertHeadValue" class="input-field" placeholder="Value to insert (1 to 99)" min="1" max="99">
+                            <button class="btn btn-insert" onclick="insertAtHead()">Insert Head</button>
+                        </div>
+                        <div class="control-row">
+                            <input type="number" id="insertTailValue" class="input-field" placeholder="Value to insert (1 to 99)" min="1" max="99">
+                            <button class="btn btn-insert" onclick="insertAtTail()">Insert Tail</button>
+                        </div>
+                        <div class="control-row">
+                            <input type="number" id="insertIndexValue" class="input-field" placeholder="Value (1 to 99)" min="1" max="99">
+                            <input type="number" id="insertIndex" class="input-field" placeholder="Index" min="0">
+                            <button class="btn btn-insert" onclick="insertAtIndex()">Insert At</button>
+                        </div>
+                        <div class="control-row">
+                            <input type="number" id="deleteValue" class="input-field" placeholder="Value to delete (1 to 99)" min="1" max="99">
+                            <button class="btn btn-delete" onclick="deleteElement()">Delete</button>
+                        </div>
+                        <div class="control-row">
+                            <input type="number" id="searchValue" class="input-field" placeholder="Value to search (1 to 99)" min="1" max="99">
+                            <button class="btn btn-search" onclick="searchElement()">Search</button>
+                        </div>
+                        <div class="control-row">
+                            <button class="btn" onclick="clearLinkedList()">Clear All</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <h3>Animation Controls</h3>
+                        <div class="speed-control">
+                            <label for="speedSlider">Animation Speed</label>
+                            <div class="speed-labels">
+                                <span>Slow</span>
+                            </div>
+                            <input type="range" id="speedSlider" class="speed-slider" min="1" max="10" value="5">
+                            <div class="speed-labels">
+                                <span>Fast</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <h3>Presets</h3>
+                        <button class="btn" onclick="loadPreset('sequential')">Sequential List</button>
+                        <button class="btn" onclick="loadPreset('reverse')">Reverse List</button>
+                        <button class="btn" onclick="loadPreset('random')">Random List</button>
+                    </div>
+                    <div class="control-group">
+                        <h3>Statistics</h3>
+                        <div class="stats-display">
+                            <div class="stat-item">
+                                <span>Operations:</span>
+                                <span id="operationCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Traversals:</span>
+                                <span id="traversalCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Time Complexity (Last Operation):</span>
+                                <span id="timeComplexity">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="main-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <a href="../code-page/code-page.html">Source Codes</a>
+                        <a href="https://github.com/neeldesai1085/AlgoLens" target="_blank">GitHub Repository</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Built With</h4>
+                        <p>HTML5, CSS3, Vanilla JavaScript, Prism.js</p>
+                        <p>Ready for GitHub Pages deployment</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 AlgoLens - Interactive Logic Visualizer.</p>
+                </div>
+            </div>
+        </footer>
+        <script src="../libs/prism.js"></script>
+        <script src="linkedlist.js"></script>
+        <script src="../js/main.js"></script>
+    </body>
+</html>
