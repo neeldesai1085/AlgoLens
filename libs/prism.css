@@ -1,0 +1,111 @@
+code[class*="language-"],
+pre[class*="language-"] {
+  color: var(--text-primary);
+  background: none;
+  text-shadow: none;
+  font-family: var(--font-mono);
+}
+
+pre[class*="language-"],
+:not(pre) > code[class*="language-"] {
+  background: var(--bg-secondary);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  overflow: auto;
+}
+
+/* Comments */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Punctuation */
+.token.punctuation {
+  color: var(--text-secondary);
+}
+
+/* Keywords (if, return, while) */
+.token.keyword {
+  color: var(--accent-cyan);
+}
+
+/* Operators (==, +, =>) */
+.token.operator {
+  color: var(--accent-orange);
+}
+
+/* Numbers, Boolean (true, false) */
+.token.boolean,
+.token.number {
+  color: var(--accent-purple);
+}
+
+/* Strings */
+.token.string {
+  color: var(--accent-green);
+}
+
+/* Functions */
+.token.function {
+  color: var(--accent-yellow);
+}
+
+/* Class names, Types (User, String, Array) */
+.token.class-name {
+  color: var(--accent-pink);
+}
+
+/* Variable names */
+.token.variable {
+  color: var(--accent-linear);
+}
+
+/* Object properties, attribute names */
+.token.property,
+.token.attr-name {
+  color: var(--accent-red);
+}
+
+/* Attribute values (in HTML, JSX, etc.) */
+.token.attr-value {
+  color: var(--accent-tree);
+}
+
+/* Symbols ($, &, etc.) */
+.token.symbol {
+  color: var(--accent-graph);
+}
+
+/* Built-in functions, selectors, inserted code */
+.token.builtin,
+.token.selector,
+.token.inserted {
+  color: var(--accent-sorting);
+}
+
+/* Constants, deleted tokens */
+.token.constant,
+.token.deleted {
+  color: var(--accent-red);
+}
+
+/* At-rules (@media, etc.) */
+.token.atrule {
+  color: var(--accent-pink);
+}
+
+/* Regex, important keywords */
+.token.regex,
+.token.important {
+  color: var(--accent-orange);
+}
+
+/* URLs, entities */
+.token.url,
+.token.entity {
+  color: var(--text-secondary);
+}
