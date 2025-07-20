@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Deque - AlgoLens</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/visualizer.css">
+        <link rel="stylesheet" href="../libs/prism.css">
+        <link rel="icon" type="image/png" href="../assets/favicon.png">
+    </head>
+    <body>
+        <header class="main-header">
+            <div class="container">
+                <a class="logo" href="../index.html">
+                    <div class="logo-image">
+                        <img src="../assets/favicon.png" alt="AlgoLens Logo" class="logo-image">
+                    </div>
+                    <div class="logo-text">
+                        <h1>AlgoLens</h1>
+                        <span>Interactive Deque Visualizer</span>
+                    </div>
+                </a>
+                <nav class="main-nav">
+                    <a href="../index.html" class="nav-link active">Home</a>
+                    <a href="../code-page/code-page.html" class="nav-link">Source Code</a>
+                    <a href="https://github.com/neeldesai1085/AlgoLens" class="nav-link" target="_blank">GitHub</a>
+                    <button class="theme-toggle" id="themeToggle">🌙</button>
+                </nav>
+                <nav class="mobile-nav">
+                    <button class="theme-toggle" id="themeToggle">🌙</button>
+                    <button class="menu-toggle" id="menuToggle">☰</button>
+                    <div class="mobile-menu" id="mobileMenu">
+                        <a href="../index.html" class="nav-link active">Home</a>
+                        <a href="../code-page/code-page.html" class="nav-link">Source Code</a>
+                        <a href="https://github.com/neeldesai1085/AlgoLens" class="nav-link" target="_blank">GitHub</a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="container">
+            <div class="topic-layout">
+                <div class="page-header">
+                    <h1 class="page-title">Dynamic Deque Visualization</h1>
+                    <p class="page-description">
+                        A Double-Ended Queue (Deque) allows adding and removing elements from both ends.
+                        Explore its operations with real-time visualization and step-by-step code execution.
+                    </p>
+                </div>
+                <div class="visualization-area">
+                    <div class="visualization-container">
+                        <div class="queue-container" id="dequeContainer">
+                            <div class="empty-state">
+                                <p>Deque is empty. Add elements to get started!</p>
+                            </div>
+                        </div>
+                        <div class="array-info">
+                            <div class="info-item">
+                                <span class="info-label">Size:</span>
+                                <span class="info-value" id="dequeSize">0</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Capacity:</span>
+                                <span class="info-value" id="dequeCapacity">8</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Last Operation:</span>
+                                <span class="info-value" id="lastOperation">None</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="explanation-box">
+                        <h3 class="explanation-title">Operation Explanation</h3>
+                        <p class="explanation-text" id="explanationText">
+                            Select an operation from the controls panel to see the step-by-step execution 
+                            with highlighted code and detailed explanations.
+                        </p>
+                    </div>
+                </div>
+                <div class="code-area">
+                    <div class="code-header">
+                        <span class="code-title">Deque.java</span>
+                        <a href="code/Deque.java" class="btn view-source-btn" target="_blank">View Source</a>
+                    </div>
+                    <div class="code-content">
+                        <pre><code class="language-java" id="codeDisplay">public class Deque&lt;T&gt; {
+    private Object[] deque;
+    private int size;
+    private int capacity;
+    private int front;
+    private int rear;
+
+    public Deque() {
+        capacity = 5;
+        deque = new Object[capacity];
+        size = 0;
+        front = -1;
+        rear = -1;
+    }
+
+    public boolean isFull() {
+        return size == capacity;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    private void resize() {
+        int newCapacity = capacity * 2;
+        Object[] newDeque = new Object[newCapacity];
+        int i = 0;
+        int j = front;
+        while (i < size) {
+            newDeque[i] = deque[j];
+            j = (j + 1) % capacity;
+            i++;
+        }
+        deque = newDeque;
+        capacity = newCapacity;
+        front = 0;
+        rear = size - 1;
+    }
+
+    public void addFirst(T element) {
+        if (isFull()) {
+            resize();
+        }
+        if (isEmpty()) {
+            front = 0;
+            rear = -1;
+        } else {
+            front = (front - 1 + capacity) % capacity;
+        }
+        deque[front] = element;
+        size++;
+    }
+
+    public void addLast(T element) {
+        if (isFull()) {
+            resize();
+        }
+        if (isEmpty()) {
+            front = 0;
+            rear = -1;
+        } else {
+            rear = (rear + 1) % capacity;
+        }
+        deque[rear] = element;
+        size++;
+    }
+
+    public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+        T element = (T) deque[front];
+        deque[front] = null;
+        size--;
+        if (isEmpty()) {
+            front = -1;
+            rear = -1;
+        } else {
+            front = (front + 1) % capacity;
+        }
+        return element;
+    }
+
+    public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
+        T element = (T) deque[rear];
+        deque[rear] = null;
+        size--;
+        if (isEmpty()) {
+            front = -1;
+            rear = -1 ;
+        } else {
+            rear = (rear - 1 + capacity) % capacity;
+        }
+        return element;
+    }
+
+    public T peekFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+        return (T) deque[front];
+    }
+
+    public T peekLast() {
+        if (isEmpty()) {
+            return null;
+        }
+        return (T) deque[rear];
+    }
+
+    public int size() {
+        return size;
+    }
+}</code></pre>
+                    </div>
+                </div>
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <h3>Deque Operations</h3>
+                        <div class="control-row">
+                            <input type="number" id="addFrontValue" class="input-field" placeholder="Value to add front (1-99)" min="1" max="99">
+                            <button class="btn" onclick="addFrontElement()">Add Front</button>
+                        </div>
+                        <div class="control-row">
+                            <input type="number" id="addRearValue" class="input-field" placeholder="Value to add rear (1-99)" min="1" max="99">
+                            <button class="btn" onclick="addRearElement()">Add Rear</button>
+                        </div>
+                        <div class="control-row">
+                            <button class="btn" onclick="removeFrontElement()">Remove Front</button>
+                            <button class="btn" onclick="removeRearElement()">Remove Rear</button>
+                        </div>
+                        <div class="control-row">
+                            <button class="btn" onclick="peekFrontElement()">Peek Front</button>
+                            <button class="btn" onclick="peekRearElement()">Peek Rear</button>
+                        </div>
+                         <div class="control-row">
+                            <button class="btn" onclick="clearDeque()">Clear All</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <h3>Animation Controls</h3>
+                        <div class="speed-control">
+                            <label for="speedSlider">Animation Speed</label>
+                            <div class="speed-labels">
+                                <span>Slow</span>
+                            </div>
+                            <input type="range" id="speedSlider" class="speed-slider" min="1" max="10" value="5">
+                            <div class="speed-labels">
+                                <span>Fast</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <h3>Presets</h3>
+                        <button class="btn" onclick="loadPreset('random')">Random Deque</button>
+                        <button class="btn" onclick="loadPreset('full')">Full Deque</button>
+                    </div>
+                    <div class="control-group">
+                        <h3>Statistics</h3>
+                        <div class="stats-display">
+                            <div class="stat-item">
+                                <span>Operations:</span>
+                                <span id="operationCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Comparisons:</span>
+                                <span id="comparisonCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Time Complexity (Last Operation):</span>
+                                <span id="timeComplexity">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="main-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <a href="../code-page/code-page.html">Source Codes</a>
+                        <a href="https://github.com/neeldesai1085/AlgoLens" target="_blank">GitHub Repository</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Built With</h4>
+                        <p>HTML5, CSS3, Vanilla JavaScript, Prism.js</p>
+                        <p>Ready for GitHub Pages deployment</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 AlgoLens - Interactive Logic Visualizer.</p>
+                </div>
+            </div>
+        </footer>
+        <script src="../libs/prism.js"></script>
+        <script src="deque.js"></script>
+        <script src="../js/main.js"></script>
+    </body>
+</html>
