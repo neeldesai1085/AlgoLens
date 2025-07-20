@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Source Codes - AlgoLens</title>
+        <meta name="description" content="Complete Java implementations for data structures and algorithms with interactive code viewing and download options.">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="code-page.css">
+        <link rel="stylesheet" href="../libs/prism.css">
+        <link rel="icon" type="image/png" href="../assets/favicon.png">
+    </head>
+    <body>
+                <header class="main-header">
+            <div class="container">
+                <a class="logo" href="../index.html">
+                    <div class="logo-image">
+                        <img src="../assets/favicon.png" alt="AlgoLens Logo" class="logo-image">
+                    </div>
+                    <div class="logo-text">
+                        <h1>AlgoLens</h1>
+                        <span>Java Source Codes</span>
+                    </div>
+                </a>
+                <nav class="main-nav">
+                    <a href="../index.html" class="nav-link">Home</a>
+                    <a href="code-page.html" class="nav-link active">Source Code</a>
+                    <a href="https://github.com/neeldesai1085/AlgoLens" class="nav-link" target="_blank">GitHub</a>
+                    <button class="theme-toggle" id="themeToggle">🌙</button>
+                </nav>
+                <nav class="mobile-nav">
+                    <button class="theme-toggle" id="themeToggle">🌙</button>
+                    <button class="menu-toggle" id="menuToggle">☰</button>
+                    <div class="mobile-menu" id="mobileMenu">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="code-page.html" class="nav-link active">Source Code</a>
+                        <a href="https://github.com/neeldesai1085/AlgoLens" class="nav-link" target="_blank">GitHub</a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Complete Java Implementation</h1>
+                    <p class="hero-subtitle">
+                        Access all Java source code files used in the visualizations. Each file contains a complete 
+                        implementation ready for learning and modification with detailed explanations and examples.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">4</span>
+                            <span class="stat-label">Implementations</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">1</span>
+                            <span class="stat-label">Categories</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">300+</span>
+                            <span class="stat-label">Lines of Code</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <section class="code-section">
+            <div class="container">
+                <div class="topic-category">
+                    <h2 class="category-title">Linear Data Structures</h2>
+                    <div class="code-grid">
+                        <article class="code-card linear available">
+                            <div class="code-header">
+                                <div class="code-icon">📊</div>
+                                <div class="code-info">
+                                    <h3>Dynamic Array</h3>
+                                    <p>A complete implementation of a dynamic array with automatic resize functionality and efficient operations.</p>
+                                </div>
+                                <div class="code-status available">✓</div>
+                            </div>
+                            <div class="code-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">🔢</span>
+                                    <span class="stat-text">Operations: Insert, Delete, Search</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">⚙️</span>
+                                    <span class="stat-text">Features: Dynamic Resizing</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">📏</span>
+                                    <span class="stat-text">Lines: ~70</span>
+                                </div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn btn-secondary view-code-btn">👁️ View Code</button>
+                                <button class="btn download-code-btn"">📥 Download</button>
+                            </div>
+                            <div class="code-viewer" id="code-viewer-array">
+                                <div class="code-viewer-header">
+                                    <span class="file-name">Array.java</span>
+                                    <button class="copy-code-btn">📋</button>
+                                </div>
+                                <pre class="language-java"><code>public class Array&lt;T&gt; {
+    private Object[] array;
+    private int size;
+    private int capacity;
+
+    public Array() {
+        capacity = 5;
+        array = new Object[capacity];
+        size = 0;
+    }
+
+    public void insert(T element) {
+        if (size == capacity) {
+            resize();
+        }
+        array[size] = element;
+        size++;
+    }
+
+    public boolean delete(T element) {
+        int index = search(element);
+        if (index == -1) {
+            return false;
+        }
+        shiftLeft(index);
+        size--;
+        return true;
+    }
+
+    public int search(T element) {
+        for (int i = 0; i < size; i++) {
+            if (array[i].equals(element)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private void resize() {
+        capacity *= 2;
+        Object[] newArray = new Object[capacity];
+        for (int i = 0; i < size; i++) {
+            newArray[i] = array[i];
+        }
+        array = newArray;
+    }
+
+    private void shiftLeft(int index) {
+        for (int i = index; i < size; i++) {
+            array[i] = array[i + 1];
+        }
+    }
+
+    public int size() {
+        return size;
+    }
+}</code></pre>
+                            </div>
+                        </article>
+                        <article class="code-card linear available">
+                            <div class="code-header">
+                                <div class="code-icon">🔗</div>
+                                <div class="code-info">
+                                    <h3>Linked List</h3>
+                                    <p>Singly and doubly linked lists with efficient pointer manipulation and traversal operations.</p>
+                                </div>
+                                <div class="code-status available">✓</div>
+                            </div>
+                            <div class="code-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">🔢</span>
+                                    <span class="stat-text">Operations: Insert Head, Insert Tail, Insert At Index, Delete, Search</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">⚙️</span>
+                                    <span class="stat-text">Features: Dynamic Size</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">📏</span>
+                                    <span class="stat-text">Lines: ~90</span>
+                                </div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn btn-secondary view-code-btn">👁️ View Code</button>
+                                <button class="btn download-code-btn"">📥 Download</button>
+                            </div>
+                            <div class="code-viewer" id="code-viewer-array">
+                                <div class="code-viewer-header">
+                                    <span class="file-name">LinkedList.java</span>
+                                    <button class="copy-code-btn">📋</button>
+                                </div>
+                                <pre class="language-java"><code>public class LinkedList<T> {
+    private Node<T> head;
+    private int size = 0;
+    private class Node<T> {
+        T data;
+        Node<T> next;
+        Node(T data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    public void insertAtHead(T data) {
+        Node<T> newNode = new Node<>(data);
+        newNode.next = head;
+        head = newNode;
+        size++;
+    }
+
+    public void insertAtTail(T data) {
+        Node<T> newNode = new Node<>(data);
+        if (head == null) {
+            insertAtHead(data);
+            return;
+        }
+        Node<T> current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+        size++;
+    }
+
+    public void insertAtIndex(int index, T data) {
+        if (index < 0 || index > size) {
+            return;
+        }
+        if (index == 0) {
+            insertAtHead(data);
+            return;
+        }
+        Node<T> newNode = new Node<>(data);
+        Node<T> current = head;
+        for (int i = 0; i < index - 1; i++) {
+            current = current.next;
+        }
+        newNode.next = current.next;
+        current.next = newNode;
+        size++;
+    }
+
+    public boolean delete(T data) {
+        if (head == null) {
+            return false;
+        }
+        if (head.data.equals(data)) {
+            head = head.next;
+            size--;
+            return true;
+        }
+        Node<T> current = head;
+        while (current.next != null) {
+            if (current.next.data.equals(data)) {
+                current.next = current.next.next;
+                size--;
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
+
+    public int search(T data) {
+        Node<T> current = head;
+        int index = 0;
+        while (current != null) {
+            if (current.data.equals(data)) {
+                return index;
+            }
+            current = current.next;
+            index++;
+        }
+        return -1;
+    }
+
+    public int size() {
+        return size;
+    }
+}</code></pre>
+                            </div>
+                        </article>
+                        <article class="code-card linear available">
+                            <div class="code-header">
+                                <div class="code-icon">📚</div>
+                                <div class="code-info">
+                                    <h3>Stack</h3>
+                                    <p>A dynamic array-based implementation of a LIFO stack with automatic resizing capabilities.</p>
+                                </div>
+                                <div class="code-status available">✓</div>
+                            </div>
+                            <div class="code-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">🔢</span>
+                                    <span class="stat-text">Operations: Push, Pop, Peek</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">⚙️</span>
+                                    <span class="stat-text">Features: Dynamic Resizing</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">📏</span>
+                                    <span class="stat-text">Lines: ~50</span>
+                                </div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn btn-secondary view-code-btn">👁️ View Code</button>
+                                <button class="btn download-code-btn"">📥 Download</button>
+                            </div>
+                            <div class="code-viewer" id="code-viewer-stack">
+                                <div class="code-viewer-header">
+                                    <span class="file-name">Stack.java</span>
+                                    <button class="copy-code-btn">📋</button>
+                                </div>
+                                <pre class="language-java"><code>public class Stack<T> {
+    private Object[] stack;
+    private int size;
+    private int capacity;
+    private int top;
+
+    public Stack() {
+        this.capacity = 5;
+        this.stack = new Object[this.capacity];
+        this.size = 0;
+        this.top = -1;
+    }
+
+    private void resize() {
+        int newCapacity = capacity * 2;
+        this.stack = Arrays.copyOf(this.stack, newCapacity);
+        this.capacity = newCapacity;
+    }
+
+    public void push(T data) {
+        if (size == capacity) {
+            resize();
+        }
+        top++;
+        stack[top] = data;
+        size++;
+    }
+
+    public T pop() {
+        if (isEmpty()) {
+            return null;
+        }
+        T data = (T) stack[top];
+        stack[top] = null;
+        top--;
+        size--;
+        return data;
+    }
+
+    public T peek() {
+        if (isEmpty()) {
+            return null;
+        }
+        return (T) stack[top];
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+    
+    public int size() {
+        return size;
+    }
+}</code></pre>
+                            </div>
+                        </article>
+                        <article class="code-card linear available">
+                            <div class="code-header">
+                                <div class="code-icon">↔️</div>
+                                <div class="code-info">
+                                    <h3>Deque</h3>
+                                    <p>A circular array implementation of a double-ended queue with efficient front and rear operations.</p>
+                                </div>
+                                <div class="code-status available">✓</div>
+                            </div>
+                            <div class="code-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">🔢</span>
+                                    <span class="stat-text">Operations: Add At First, Add At Last, Remove At First, Remove At Last, Peek At First, Peek At Last</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">⚙️</span>
+                                    <span class="stat-text">Features: Circular, Resizing</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">📏</span>
+                                    <span class="stat-text">Lines: ~110</span>
+                                </div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn btn-secondary view-code-btn">👁️ View Code</button>
+                                <button class="btn download-code-btn">📥 Download</button>
+                            </div>
+                            <div class="code-viewer" id="code-viewer-deque">
+                                <div class="code-viewer-header">
+                                    <span class="file-name">Deque.java</span>
+                                    <button class="copy-code-btn">📋</button>
+                                </div>
+                                <pre class="language-java"><code>public class Deque&lt;T&gt; {
+    private Object[] deque;
+    private int size;
+    private int capacity;
+    private int front;
+    private int rear;
+
+    public Deque() {
+        capacity = 5;
+        deque = new Object[capacity];
+        size = 0;
+        front = -1;
+        rear = -1;
+    }
+
+    public boolean isFull() {
+        return size == capacity;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    private void resize() {
+        int newCapacity = capacity * 2;
+        Object[] newDeque = new Object[newCapacity];
+        int i = 0;
+        int j = front;
+        while (i < size) {
+            newDeque[i] = deque[j];
+            j = (j + 1) % capacity;
+            i++;
+        }
+        deque = newDeque;
+        capacity = newCapacity;
+        front = 0;
+        rear = size - 1;
+    }
+
+    public void addFirst(T element) {
+        if (isFull()) {
+            resize();
+        }
+        if (isEmpty()) {
+            front = 0;
+            rear = -1;
+        } else {
+            front = (front - 1 + capacity) % capacity;
+        }
+        deque[front] = element;
+        size++;
+    }
+
+    public void addLast(T element) {
+        if (isFull()) {
+            resize();
+        }
+        if (isEmpty()) {
+            front = 0;
+            rear = -1;
+        } else {
+            rear = (rear + 1) % capacity;
+        }
+        deque[rear] = element;
+        size++;
+    }
+
+    public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+        T element = (T) deque[front];
+        deque[front] = null;
+        size--;
+        if (isEmpty()) {
+            front = -1;
+            rear = -1;
+        } else {
+            front = (front + 1) % capacity;
+        }
+        return element;
+    }
+
+    public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
+        T element = (T) deque[rear];
+        deque[rear] = null;
+        size--;
+        if (isEmpty()) {
+            front = -1;
+            rear = -1 ;
+        } else {
+            rear = (rear - 1 + capacity) % capacity;
+        }
+        return element;
+    }
+
+    public T peekFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+        return (T) deque[front];
+    }
+
+    public T peekLast() {
+        if (isEmpty()) {
+            return null;
+        }
+        return (T) deque[rear];
+    }
+
+    public int size() {
+        return size;
+    }
+}</code></pre>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="topic-category">
+                    <h2 class="category-title">Tree Data Structures</h2>
+                    <div class="code-grid">
+                        <article class="code-card tree coming-soon">
+                            <div class="code-header">
+                                <div class="code-icon">🌳</div>
+                                <div class="code-info">
+                                    <h3>Binary Search Tree</h3>
+                                    <p>Self-organizing tree with efficient search, insertion, and deletion operations.</p>
+                                </div>
+                                <div class="code-status coming-soon">⏳</div>
+                            </div>
+                            <div class="code-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">⏳</span>
+                                    <span class="stat-text">Coming Soon</span>
+                                </div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn btn-secondary view-code-btn" disabled>👁️ View Code</button>
+                                <button class="btn download-code-btn" disabled>📥 Download</button>
+                            </div>
+                        </article>
+                        <article class="code-card tree coming-soon">
+                            <div class="code-header">
+                                <div class="code-icon">⚖️</div>
+                                <div class="code-info">
+                                    <h3>AVL Tree</h3>
+                                    <p>Self-balancing binary search tree with automatic rotations for optimal performance.</p>
+                                </div>
+                                <div class="code-status coming-soon">⏳</div>
+                            </div>
+                            <div class="code-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">⏳</span>
+                                    <span class="stat-text">Coming Soon</span>
+                                </div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn btn-secondary view-code-btn" disabled>👁️ View Code</button>
+                                <button class="btn download-code-btn" disabled>📥 Download</button>
+                            </div>
+                        </article>
+                        <article class="code-card tree coming-soon">
+                            <div class="code-header">
+                                <div class="code-icon">⛰️</div>
+                                <div class="code-info">
+                                    <h3>Heap</h3>
+                                    <p>Complete binary tree with heap property maintenance for priority queue operations.</p>
+                                </div>
+                                <div class="code-status coming-soon">⏳</div>
+                            </div>
+                            <div class="code-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">⏳</span>
+                                    <span class="stat-text">Coming Soon</span>
+                                </div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn btn-secondary view-code-btn" disabled>👁️ View Code</button>
+                                <button class="btn download-code-btn" disabled>📥 Download</button>
+                            </div>
+                        </article>
+                        <article class="code-card tree coming-soon">
+                            <div class="code-header">
+                                <div class="code-icon">🔤</div>
+                                <div class="code-info">
+                                    <h3>Trie</h3>
+                                    <p>Prefix tree for efficient string operations, autocomplete, and dictionary implementations.</p>
+                                </div>
+                                <div class="code-status coming-soon">⏳</div>
+                            </div>
+                            <div class="code-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">⏳</span>
+                                    <span class="stat-text">Coming Soon</span>
+                                </div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn btn-secondary view-code-btn" disabled>👁️ View Code</button>
+                                <button class="btn download-code-btn" disabled>📥 Download</button>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="download-section">
+                    <div class="download-content">
+                        <h2>Download Complete Collection</h2>
+                        <p>Get all available Java source files in a single download for offline learning and modification. 
+                        Includes documentation, examples, and test cases.</p>
+                        <div class="download-stats">
+                            <div class="download-stat">
+                                <span class="stat-number">4</span>
+                                <span class="stat-label">Available Files</span>
+                            </div>
+                            <div class="download-stat">
+                                <span class="stat-number">300+</span>
+                                <span class="stat-label">Lines of Code</span>
+                            </div>
+                            <div class="download-stat">
+                                <span class="stat-number">MIT</span>
+                                <span class="stat-label">License</span>
+                            </div>
+                        </div>
+                        <div class="download-options">
+                            <a href="../code.zip" class="btn download-btn" target="_blank">📦 Download ZIP</a>
+                            <a href="https://github.com/neeldesai1085/AlgoLens" class="btn btn-secondary download-btn" target="_blank">🔗 Clone Repository</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="main-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <a href="code-page.html">Source Codes</a>
+                        <a href="https://github.com/neeldesai1085/AlgoLens" target="_blank">GitHub Repository</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Built With</h4>
+                        <p>HTML5, CSS3, Vanilla JavaScript, Prism.js</p>
+                        <p>Ready for GitHub Pages deployment</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 AlgoLens - Interactive Logic Visualizer.</p>
+                </div>
+            </div>
+        </footer>
+        <script src="../libs/prism.js"></script>
+        <script src="code-page.js"></script>
+        <script src="../js/main.js"></script>
+    </body>
+</html>

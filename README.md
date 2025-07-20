@@ -26,6 +26,10 @@
 - Real-time line highlighting synchronized with visual steps
 - Prism.js-based syntax coloring for enhanced readability
 
+### 🎛️ WebKit UI Tweaks
+- Custom styling for native UI elements like input spinners using `::-webkit-*` selectors
+- Smooth integration with the app's color palette and design system
+
 ### 📥 Extra Tools
 - Download visualized Java code as a `.java` file
 - Auto-highlight corresponding code while the animation runs
