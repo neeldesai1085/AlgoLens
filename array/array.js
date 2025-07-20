@@ -262,6 +262,7 @@ class DynamicArrayVisualizer {
 		await this.scrollToVisualization();
 		await this.animateShiftLeft(foundIndex);
 		this.array.splice(foundIndex, 1);
+		await this.delay(this.animationSpeed);
 		this.lastOperation.textContent = `Deleted ${value}`;
 		this.timeComplexityEl.textContent = 'O(n)';
 		this.updateDisplay();
