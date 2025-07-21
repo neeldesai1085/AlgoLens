@@ -30,6 +30,10 @@
 - Custom styling for native UI elements like input spinners using `::-webkit-*` selectors
 - Smooth integration with the app's color palette and design system
 
+### 📱 Fully Responsive Layout
+- Mobile-first design that adapts gracefully across screen sizes  
+- Navigation header transforms into a dropdown menu on smaller screens for optimal usability
+
 ### 📥 Extra Tools
 - Download visualized Java code as a `.java` file
 - Auto-highlight corresponding code while the animation runs
